@@ -29,18 +29,18 @@ public class FamilyApp {
         System.out.println(family.countFamily());
         family.getPet();
         Pet cat = new DomesticCat("Cat", "lazyCat", 2, 66, new HashSet<>());
-      //  Pet dog = new Dog("dog", "tom", 1, 77, new HashSet<>());
+       Pet dog = new Dog("dog", "tom", 1, 77, new HashSet<>());
         cat.getHabits().add("sleeping");
-     //   dog.getHabits().add("running");
+       dog.getHabits().add("running");
         System.out.println(cat);
    //     System.out.println(dog);
         family.addPet(cat);
-   //     family.addPet(dog);
+      family.addPet(dog);
      //   System.out.println(family.getPet());
-      //  System.out.println(family.removePet(cat));
+        System.out.println(family.removePet(cat));
     //    System.out.println(family.getPet());
-        System.out.println("0000");
-        System.out.println(family.getPet());
+      //  System.out.println("0000");
+     //   System.out.println(family.getPet());
 
     }
 }
