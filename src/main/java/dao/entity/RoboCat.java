@@ -1,3 +1,7 @@
+package dao.entity;
+
+import interfaces.CanFoul;
+
 import java.util.Set;
 
 public class RoboCat extends Pet implements CanFoul {

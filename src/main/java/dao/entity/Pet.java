@@ -1,3 +1,7 @@
+package dao.entity;
+
+import model.enums.Species;
+
 import java.util.*;
 
 public abstract class Pet {
@@ -94,7 +98,7 @@ public abstract class Pet {
 
     @Override
     public String toString() {
-        return "Pet{" +
+        return "dao.entity.Pet{" +
                 "species='" + species + '\'' +
                 ", speciesType=" + speciesType +
                 ", nickname='" + nickname + '\'' +

@@ -1,4 +1,9 @@
+package dao.entity;
+
+import model.enums.DaysOfWeek;
+
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -90,7 +95,7 @@ public void welcomeFavoritePet(){
 public  void describefavPet(Family family){
         if (family.getPet()!=null){
             Pet pet=family.getPet().iterator().next();
-            System.out.println("Family's favorite animals habits is: "+pet.getHabits()+"and family's animals trickLevel is: "+pet.getTrickLevel());
+            System.out.println("dao.entity.Family's favorite animals habits is: "+pet.getHabits()+"and family's animals trickLevel is: "+pet.getTrickLevel());
         }else {
             System.out.println("The family has not any animal yet");
         }
@@ -101,15 +106,12 @@ public  void feed(){
 public  void greetPet(){
     System.out.println("Hello,my owner");
 }
+
     @Override
     public String toString() {
-        return "Human{" +
+        return "dao.entity.Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", birthDate=" + birthDate +
-                ", iqLevel=" + iqLevel +
-                ", schedule=" + schedule +
-                ", family=" + family +
                 '}';
     }
 
@@ -130,5 +132,9 @@ public  void greetPet(){
     @Override
     public int hashCode() {
         return Objects.hash(name, surname, birthDate, iqLevel, schedule, family);
+    }
+    public int calculateAge() {
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(birthDate, currentDate).getYears();
     }
 }

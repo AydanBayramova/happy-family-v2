@@ -1,3 +1,9 @@
+package dao.entity;
+
+import dao.entity.Family;
+import dao.entity.Human;
+import model.enums.DaysOfWeek;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +28,6 @@ public final class Man extends Human {
     }
 
     public void repairCar() {
-        System.out.println("Man like car collection");
+        System.out.println("dao.entity.Man like car collection");
     }
 }

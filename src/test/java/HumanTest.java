@@ -1,3 +1,6 @@
+import dao.entity.Family;
+import dao.entity.Human;
+import model.enums.DaysOfWeek;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +17,7 @@ public class HumanTest {
     @DisplayName("Test toString")
     void toStringTest() {
         Human mother = new Human("Jane", "watson", LocalDate.of(1980, 9, 7));
-        String test = "Human{name='Jane', surname='watson', birthDate=1980-09-07, iqLevel=0.0, schedule=null, family=null}";
+        String test = "dao.entity.Human{name='Jane', surname='watson', birthDate=1980-09-07, iqLevel=0.0, schedule=null, family=null}";
         assertEquals(test, mother.toString());
     }
 
@@ -55,7 +58,7 @@ public class HumanTest {
         schedule.put(DaysOfWeek.THURSDAY, Arrays.asList("Science", "History"));
         schedule.put(DaysOfWeek.FRIDAY, Arrays.asList("Free time", "Friends"));
         schedule.put(DaysOfWeek.SATURDAY, Arrays.asList("Sports", "Movies"));
-        schedule.put(DaysOfWeek.SUNDAY, Arrays.asList("Relax", "Family"));
+        schedule.put(DaysOfWeek.SUNDAY, Arrays.asList("Relax", "dao.entity.Family"));
         Human mother = new Human("Jane", "Watson", LocalDate.of(1980, 9, 7));
         Human father = new Human("John", "Watson", LocalDate.of(1890, 9, 5));
         Family family = new Family(mother, father);

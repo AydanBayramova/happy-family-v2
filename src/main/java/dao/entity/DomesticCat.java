@@ -1,3 +1,5 @@
+package dao.entity;
+
 import java.util.Set;
 
 public class DomesticCat extends Pet {

@@ -1,3 +1,6 @@
+package dao.entity;
+
+
 import java.util.*;
 
 public class Family {
@@ -6,13 +9,15 @@ public class Family {
     private List<Human> children=new ArrayList<>();
     private Set<Pet> pet=new HashSet<>();
     private static int countFamily;
-
+    private static int nextId = 1;
+    private int id;
 
     public Family(Human mother, Human father) {
         if (mother == null && father == null) {
             System.out.println("there is no mother and father");
 
         } else {
+            this.id = nextId++;
             this.mother = mother;
             this.father = father;
             this.children =new ArrayList<>();
@@ -32,6 +37,9 @@ public class Family {
         return father;
     }
 
+    public int getId() {
+        return id;
+    }
     public void setFather(Human father) {
         this.father = father;
     }
@@ -64,11 +72,10 @@ public class Family {
 
     public void addChild(Human child) {
         if (child == null) {
-            System.out.println(("Family don't have any child yet"));
+            System.out.println(("dao.entity.Family don't have any child yet"));
         } else {
             this.children.add(child);
             child.setFamily(this);
-
         }
 
     }
@@ -90,7 +97,7 @@ public class Family {
         }
 
         if (this.children.size() == 0) {
-            System.out.println("Family has no children to delete.");
+            System.out.println("dao.entity.Family has no children to delete.");
             return false;
         }
 
@@ -102,7 +109,7 @@ public class Family {
             return false;
         }
         if (this.pet.size()==0){
-            System.out.println("Family has no animals");
+            System.out.println("dao.entity.Family has no animals");
             return false;
         }
        return pet.remove(removePet);
@@ -114,14 +121,11 @@ public class Family {
 
     @Override
     public String toString() {
-        return "Family{" +
+        return "dao.entity.Family{" +
                 "mother=" + mother +
                 ", father=" + father +
-                ", childrenCount=" + children.size() +
-                ", pet=" + pet +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {
