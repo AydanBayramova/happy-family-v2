@@ -16,7 +16,7 @@ public class HumanTest {
     @Test
     @DisplayName("Test toString")
     void toStringTest() {
-        Human mother = new Human("Jane", "watson", LocalDate.of(1980, 9, 7));
+        Human mother = new Human("Jane", "watson", LocalDate.of(1980, 9, 7).toEpochDay());
         String test = "dao.entity.Human{name='Jane', surname='watson', birthDate=1980-09-07, iqLevel=0.0, schedule=null, family=null}";
         assertEquals(test, mother.toString());
     }
@@ -24,10 +24,10 @@ public class HumanTest {
     @Test
     @DisplayName("Test Delete Child")
     void deleteChild() {
-        Human mother = new Human("Jane", "watson", LocalDate.of(1980, 9, 7));
-        Human father = new Human("John", "Watson", LocalDate.of(1890, 9, 5));
+        Human mother = new Human("Jane", "watson", LocalDate.of(1980, 9, 7).toEpochDay());
+        Human father = new Human("John", "Watson", LocalDate.of(1890, 9, 5).toEpochDay());
         Family family = new Family(mother, father);
-        Human human = new Human("J", "W", LocalDate.of(1990, 8, 3));
+        Human human = new Human("J", "W", LocalDate.of(1990, 8, 3).toEpochDay());
         family.addChild(human);
         family.deleteChild(human);
         assertEquals(0, family.getChildren().size());
@@ -37,11 +37,11 @@ public class HumanTest {
     @Test
     @DisplayName("Test Delete Child")
     void noDeleteChild() {
-        Human mother = new Human("Jane", "Watson", LocalDate.of(1980, 9, 7));
-        Human father = new Human("John", "Watson", LocalDate.of(1890, 9, 5));
+        Human mother = new Human("Jane", "Watson", LocalDate.of(1980, 9, 7).toEpochDay());
+        Human father = new Human("John", "Watson", LocalDate.of(1890, 9, 5).toEpochDay());
         Family family = new Family(mother, father);
-        Human human = new Human("J", "W", LocalDate.of(1990, 8, 3));
-        Human human2 = new Human("Joe", "W", LocalDate.of(1990, 8, 3));
+        Human human = new Human("J", "W", LocalDate.of(1990, 8, 3).toEpochDay());
+        Human human2 = new Human("Joe", "W", LocalDate.of(1990, 8, 3).toEpochDay());
         family.addChild(human);
         family.deleteChild(human2);
         assertEquals(1, family.getChildren().size());
@@ -59,10 +59,10 @@ public class HumanTest {
         schedule.put(DaysOfWeek.FRIDAY, Arrays.asList("Free time", "Friends"));
         schedule.put(DaysOfWeek.SATURDAY, Arrays.asList("Sports", "Movies"));
         schedule.put(DaysOfWeek.SUNDAY, Arrays.asList("Relax", "dao.entity.Family"));
-        Human mother = new Human("Jane", "Watson", LocalDate.of(1980, 9, 7));
-        Human father = new Human("John", "Watson", LocalDate.of(1890, 9, 5));
+        Human mother = new Human("Jane", "Watson", LocalDate.of(1980, 9, 7).toEpochDay());
+        Human father = new Human("John", "Watson", LocalDate.of(1890, 9, 5).toEpochDay());
         Family family = new Family(mother, father);
-        Human child = new Human("Alex", "Bob", LocalDate.of(1999, 2, 3), 79, schedule, family);
+        Human child = new Human("Alex", "Bob", LocalDate.of(1999, 2, 3).toEpochDay(), 79, schedule, family);
         family.addChild(child);
         assertEquals(3, family.countFamily());
     }

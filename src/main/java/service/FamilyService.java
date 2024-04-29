@@ -118,7 +118,7 @@ public class FamilyService {
             childName = feminineName + " (Daughter)";
         }
 
-        Human child = new Human(childName,family.getFather().getSurname(), LocalDate.now());
+        Human child = new Human(childName,family.getFather().getSurname(),family.getFather().getBirthDateMillis());
 
         family.addChild(child);
 

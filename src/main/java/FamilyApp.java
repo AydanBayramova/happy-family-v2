@@ -90,15 +90,15 @@ public class FamilyApp {
         FamilyDao familyDao = new CollectionFamilyDao(families);
         FamilyService familyService = new FamilyService(familyDao);
         FamilyController familyController = new FamilyController(familyService);
-        Human father1 = new Human("John", "Doe", LocalDate.of(1980, 5, 15));
-        Human mother1 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20));
+        Human father1 = new Human("John", "Doe", LocalDate.of(1980, 5, 15).toEpochDay());
+        Human mother1 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20).toEpochDay());
         familyController.createNewFamily(father1, mother1);
-    //    System.out.println(familyController.getAllFamilies());
-        Human father2= new Human("John55", "Doe", LocalDate.of(1980, 5, 15));
-        Human mother2 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20));
+        //    System.out.println(familyController.getAllFamilies());
+        Human father2 = new Human("John55", "Doe", LocalDate.of(1980, 5, 15).toEpochDay());
+        Human mother2 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20).toEpochDay());
 
-        familyController.createNewFamily(father2,mother2);
-       System.out.println(familyController.count());
+        familyController.createNewFamily(father2, mother2);
+        System.out.println(familyController.count());
         familyController.displayAllFamilies();
     }
 }

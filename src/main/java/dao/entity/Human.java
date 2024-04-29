@@ -1,9 +1,13 @@
 package dao.entity;
 
+import dao.entity.Family;
+import dao.entity.Pet;
 import model.enums.DaysOfWeek;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -11,35 +15,35 @@ import java.util.Objects;
 public class Human {
     private String name;
     private String surname;
-    private LocalDate birthDate;
+    private long birthDateMillis; // Represents Unix Millis Timestamp
     private double iqLevel;
 
     private Map<DaysOfWeek, List<String>> schedule;
     private Family family;
 
-
-    public Human(String name, String surname, LocalDate birthDate, double iqLevel, Map<DaysOfWeek, List<String>> schedule, Family family) {
+    public Human(String name, String surname, long birthDateMillis, double iqLevel, Map<DaysOfWeek, List<String>> schedule, Family family) {
         this.name = name;
         this.surname = surname;
-        this.birthDate = birthDate;
+        this.birthDateMillis = birthDateMillis;
         this.iqLevel = iqLevel;
         this.schedule = schedule;
         this.family = family;
     }
-    public Human(String name, String surname, LocalDate birthDate, double iqLevel, Map<DaysOfWeek, List<String>> schedule) {
+
+    public Human(String name, String surname, long birthDateMillis, double iqLevel, Map<DaysOfWeek, List<String>> schedule) {
         this.name = name;
         this.surname = surname;
-        this.birthDate = birthDate;
+        this.birthDateMillis = birthDateMillis;
         this.iqLevel = iqLevel;
         this.schedule = schedule;
-
     }
-    public Human(String name, String surname, LocalDate birthDate) {
+
+    public Human(String name, String surname, long birthDateMillis) {
         this.name = name;
         this.surname = surname;
-        this.birthDate = birthDate;
-
+        this.birthDateMillis = birthDateMillis;
     }
+
     public Family getFamily() {
         return family;
     }
@@ -64,12 +68,12 @@ public class Human {
         this.surname = surname;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public long getBirthDateMillis() {
+        return birthDateMillis;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthDateMillis(long birthDateMillis) {
+        this.birthDateMillis = birthDateMillis;
     }
 
     public double getIqLevel() {
@@ -89,36 +93,49 @@ public class Human {
     public void setSchedule(Map<DaysOfWeek, List<String>> schedule) {
         this.schedule = schedule;
     }
-public void welcomeFavoritePet(){
-    System.out.println("This animal is your favorite"+this.getFamily().getPet());
-}
-public  void describefavPet(Family family){
-        if (family.getPet()!=null){
-            Pet pet=family.getPet().iterator().next();
-            System.out.println("dao.entity.Family's favorite animals habits is: "+pet.getHabits()+"and family's animals trickLevel is: "+pet.getTrickLevel());
-        }else {
+
+    public void welcomeFavoritePet() {
+        System.out.println("This animal is your favorite" + this.getFamily().getPet());
+    }
+
+    public void describeFavPet(Family family) {
+        if (family.getPet() != null) {
+            Pet pet = family.getPet().iterator().next();
+            System.out.println("Family's favorite animal's habits are: " + pet.getHabits() + " and the family's animal's trickLevel is: " + pet.getTrickLevel());
+        } else {
             System.out.println("The family has not any animal yet");
         }
     }
-public  void feed(){
-    System.out.println("your feed your animal"+this.getFamily().getPet());
-}
-public  void greetPet(){
-    System.out.println("Hello,my owner");
-}
+
+    public void feed() {
+        System.out.println("You feed your animal" + this.getFamily().getPet());
+    }
+
+    public void greetPet() {
+        System.out.println("Hello, my owner");
+    }
 
     @Override
     public String toString() {
-        return "dao.entity.Human{" +
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthDate = LocalDate.ofEpochDay(birthDateMillis / 86400000); // Convert milliseconds to days
+        return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", birthDate=" + birthDate.format(formatter) +
                 '}';
     }
 
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println("Your information is deleted by garbage collector");
+        System.out.println("Your information is deleted by the garbage collector");
+    }
+
+    public int calculateAge() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate birthDate = LocalDate.ofEpochDay(birthDateMillis / 86400000);
+        return Period.between(birthDate, currentDate).getYears();
     }
 
     @Override
@@ -126,15 +143,32 @@ public  void greetPet(){
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Human human = (Human) o;
-        return Double.compare(human.iqLevel, iqLevel) == 0 && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(birthDate, human.birthDate) && Objects.equals(schedule, human.schedule) && Objects.equals(family, human.family);
+        return Double.compare(human.iqLevel, iqLevel) == 0 && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && birthDateMillis == human.birthDateMillis && Objects.equals(schedule, human.schedule) && Objects.equals(family, human.family);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, birthDate, iqLevel, schedule, family);
+        return Objects.hash(name, surname, birthDateMillis, iqLevel, schedule, family);
     }
-    public int calculateAge() {
+
+
+    public String describeAge() {
         LocalDate currentDate = LocalDate.now();
-        return Period.between(birthDate, currentDate).getYears();
+        LocalDate birthDate = LocalDate.ofEpochDay(birthDateMillis / 86400000);
+        Period period = Period.between(birthDate, currentDate);
+        int years = period.getYears();
+        int months = period.getMonths();
+        int days = period.getDays();
+        return "Age: " + years + " years, " + months + " months, " + days + " days";
+    }
+
+    public Human(String name, String surname, String birthDateStr, double iqLevel) {
+        this.name = name;
+        this.surname = surname;
+        this.iqLevel = iqLevel;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(birthDateStr, formatter);
+        this.birthDateMillis = localDate.atStartOfDay(ZoneId.of("Asia/Baku")).toEpochSecond();
+
     }
 }

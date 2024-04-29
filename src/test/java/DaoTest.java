@@ -19,8 +19,8 @@ public class DaoTest {
         FamilyDao familyDao = new CollectionFamilyDao(families);
         FamilyService familyService = new FamilyService(familyDao);
         FamilyController familyController = new FamilyController(familyService);
-        Human father1 = new Human("John", "Doe", LocalDate.of(1980, 5, 15));
-        Human mother1 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20));
+        Human father1 = new Human("John", "Doe", LocalDate.of(1980, 5, 15).toEpochDay());
+        Human mother1 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20).toEpochDay());
         familyController.createNewFamily(father1, mother1);
         String test="[dao.entity.Family{mother=dao.entity.Human{name='John', surname='Doe'}, father=dao.entity.Human{name='Jane', surname='Doe'}}]";
         assertEquals(familyController.getAllFamilies().toString(),test);
@@ -32,11 +32,11 @@ public class DaoTest {
         FamilyDao familyDao = new CollectionFamilyDao(families);
         FamilyService familyService = new FamilyService(familyDao);
         FamilyController familyController = new FamilyController(familyService);
-        Human father1 = new Human("John", "Doe", LocalDate.of(1980, 5, 15));
-        Human mother1 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20));
+        Human father1 = new Human("John", "Doe", LocalDate.of(1980, 5, 15).toEpochDay());
+        Human mother1 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20).toEpochDay());
         familyController.createNewFamily(father1, mother1);
-        Human father2= new Human("Tom", "Doe", LocalDate.of(1980, 5, 15));
-        Human mother2 = new Human("Lima", "Doe", LocalDate.of(1985, 8, 20));
+        Human father2= new Human("Tom", "Doe", LocalDate.of(1980, 5, 15).toEpochDay());
+        Human mother2 = new Human("Lima", "Doe", LocalDate.of(1985, 8, 20).toEpochDay());
         familyController.createNewFamily(father2,mother2);
         assertEquals(2,familyController.count());
 
