@@ -60,6 +60,15 @@ public class FamilyController {
     }
 
     public boolean deleteFamily(int index) {
+        try {
+            return familyService.deleteFamily(index);
+        }
+        catch (FamilyOverflowException e){
+            if (index>familyService.count()){
+                System.out.println("index is not valid");
+            e.printStackTrace();
+            }
+        }
         return familyService.deleteFamily(index);
     }
 

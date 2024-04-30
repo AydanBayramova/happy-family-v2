@@ -1,113 +1,171 @@
 import controller.FamilyController;
+import controller.FamilyOverflowException;
 import dao.CollectionFamilyDao;
-import model.enums.DaysOfWeek;
+import dao.FamilyDao;
 import service.FamilyService;
 import dao.entity.*;
-import dao.FamilyDao;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class FamilyApp {
+
+    private static Scanner scanner = new Scanner(System.in);
+    private static List<Family> families = new ArrayList<>();
+    private static FamilyController familyController;
+
     public static void main(String[] args) {
-//        Human mother = new Human("Jane", "watson", LocalDate.of(1980, 9, 7));
-//        Human father = new Human("John", "Watson", LocalDate.of(1890, 9, 5));
-//        Family family = new Family(mother, father);
-//        Map<DaysOfWeek, List<String>> schedule = new HashMap<>();
-//        schedule.put(DaysOfWeek.MONDAY, Arrays.asList("Programming", "Gym"));
-//        schedule.put(DaysOfWeek.TUESDAY, Arrays.asList("Math", "English"));
-//        schedule.put(DaysOfWeek.WEDNESDAY, Arrays.asList("Art", "Music"));
-//        schedule.put(DaysOfWeek.THURSDAY, Arrays.asList("Science", "History"));
-//        schedule.put(DaysOfWeek.FRIDAY, Arrays.asList("Free time", "Friends"));
-//        schedule.put(DaysOfWeek.SATURDAY, Arrays.asList("Sports", "Movies"));
-//        schedule.put(DaysOfWeek.SUNDAY, Arrays.asList("Relax", "dao.entity.Family"));
-//        System.out.println("=========================");
-//        System.out.println(mother.toString());
-//        Human ch = new Human("Alex", "Bob", LocalDate.of(1999, 2, 3), 79, schedule, family);
-//        System.out.println(ch);
-//        ch.setSchedule(schedule);
-//        family.addChild(ch);
-//        System.out.println(family.countFamily());
-//        System.out.println("====");
-//        System.out.println(family.countFamily());
-//        Human ch1 = new Human("Alex", "Bob", LocalDate.of(1999, 2, 3), 79, schedule, family);
-//        System.out.println(ch1);
-//        family.addChild(ch1);
-//        System.out.println(family.countFamily());
-//        family.getPet();
-//        Pet cat = new DomesticCat("Cat", "lazyCat", 2, 66, new HashSet<>());
-//       Pet dog = new Dog("dog", "tom", 1, 77, new HashSet<>());
-//        cat.getHabits().add("sleeping");
-//       dog.getHabits().add("running");
-//        System.out.println(cat);
-//   //     System.out.println(dog);
-//        family.addPet(cat);
-//      family.addPet(dog);
-//     //   System.out.println(family.getPet());
-//        System.out.println(family.removePet(cat));
-//    //    System.out.println(family.getPet());
-//      //  System.out.println("0000");
-//     //   System.out.println(family.getPet());
-//        ArrayList<Family> families = new ArrayList<>();
-//        families.add(family);
-//        System.out.println(families.size());
-//        families.add(family);
-//
-//        System.out.println("---------------");
-//        System.out.println(families.remove(1));
-//        System.out.println("------------------------");
-//        System.out.println(families.size());
-//        FamilyDao familyDao = new CollectionFamilyDao(families);
-//        FamilyService familyService = new FamilyService(familyDao);
-//        FamilyController familyController = new FamilyController(familyService);
-//        familyService.displayAllFamilies();
-//        familyController.displayAllFamilies();
-//        System.out.println("=======================================================================================");
-//        Human father1 = new Human("John", "Doe", LocalDate.of(1980, 5, 15));
-//        Human mother1 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20));
-//        familyController.createNewFamily(father1, mother1);
-//
-//        // Yeni aileyi göster
-//        System.out.println("\nYeni aile oluşturuldu:");
-//        familyController.displayAllFamilies();
-//
-//        int maxAge = 10;
-//        familyController.deleteAllChildrenOlderThan(maxAge);
-//        System.out.println("\n" + maxAge + " yaşından büyük tüm çocukları silinmiş aileler:");
-//        familyController.displayAllFamilies();
-//        int familyIndex = 0; // Evcil hayvan eklemek istediğiniz ailenin indeksi
-//        Pet pet = new Dog("Cat","Cat",3,55,new HashSet<>());
-//        pet.getHabits().add("sleeping");
-//        System.out.println(familyController.addPet(familyIndex, pet));
-//
-//        familyController.displayAllFamilies();
-//        System.out.println(familyController.getPet(0));
-//        System.out.println(familyController.deleteFamily(0));
-//        System.out.println(familyController.count());
-//
-//        //
-        ArrayList<Family> families = new ArrayList<>();
         FamilyDao familyDao = new CollectionFamilyDao(families);
-        FamilyService familyService = new FamilyService(familyDao);
-        FamilyController familyController = new FamilyController(familyService);
-        Human father1 = new Human("John", "Doe", LocalDate.of(1980, 5, 15).toEpochDay());
-        Human mother1 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20).toEpochDay());
-        familyController.createNewFamily(father1, mother1);
-        //    System.out.println(familyController.getAllFamilies());
-        Human father2 = new Human("John55", "Doe", LocalDate.of(1980, 5, 15).toEpochDay());
-        Human mother2 = new Human("Jane", "Doe", LocalDate.of(1985, 8, 20).toEpochDay());
+        familyController = new FamilyController(new FamilyService(familyDao));
 
-        familyController.createNewFamily(father2, mother2);
-        System.out.println(familyController.count());
-        familyController.displayAllFamilies();
-        Pet pet = new Dog("Cat","Cat",3,55,new HashSet<>());
-         pet.getHabits().add("sleeping");
-        System.out.println(familyController.addPet(0, pet));
-        System.out.println(familyController.getPet(0));
-        Family newFam=new Family(father1,mother1);
-        System.out.println("------------------------------------------------------");
-        System.out.println(familyController.bornChild(newFam, "Allex", "Aly"));
+        while (true) {
+            displayMainMenu();
+            int choice = getUserChoice();
+            handleChoice(choice);
+        }
+    }
 
-           familyController.getFamiliesLessThan(1);
+    private static void displayMainMenu() {
+        System.out.println("\nFamily Management App");
+        System.out.println("1. Fill with test data");
+        System.out.println("2. Display all families");
+        System.out.println("3. Display families with more than N people");
+        System.out.println("4. Display families with less than N people");
+        System.out.println("5. Count families with N members");
+        System.out.println("6. Create a new family");
+        System.out.println("7. Delete a family by ID");
+        System.out.println("8. Edit a family by ID");
+        System.out.println("9. Remove children over age");
+        System.out.println("10. Exit");
+        System.out.print("Enter your choice: ");
+    }
+
+    private static int getUserChoice() {
+        int choice;
+        try {
+            choice = scanner.nextInt();
+            scanner.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine();
+            choice = -1;
+        }
+        return choice;
+    }
+
+    private static void handleChoice(int choice) {
+        switch (choice) {
+            case 1:
+                try {
+
+                    familyController.saveFamily((Family) families);
+                } catch (Exception e) {
+                    System.out.println("Error creating test data: " + e.getMessage());
+                }
+                break;
+            case 2:
+                try {
+                    familyController.displayAllFamilies();
+                } catch (FamilyOverflowException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+                break;
+            case 3:
+                System.out.print("Enter the minimum number of people: ");
+                int minPeople;
+                try {
+                    minPeople = scanner.nextInt();
+                    scanner.nextLine();
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.nextLine();
+                    break;
+                }
+                familyController.getFamiliesBiggerThan(minPeople);
+                break;
+            case 4:
+                System.out.print("Enter the maximum number of people: ");
+                int maxPeople;
+                try {
+                    maxPeople = scanner.nextInt();
+                    scanner.nextLine();
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.nextLine();
+                    break;
+                }
+                familyController.getFamiliesLessThan(maxPeople);
+                break;
+            case 5:
+                try {
+                    int count = familyController.count();
+                    System.out.println("Number of families: " + count);
+                } catch (Exception e) {
+                    System.out.println("Error counting families: " + e.getMessage());
+                }
+                break;
+            case 6:
+                System.out.print("Enter mother's name: ");
+                String motherName = scanner.nextLine();
+                System.out.print("Enter mother's last name: ");
+                String motherLastName = scanner.nextLine();
+                System.out.print("Enter mother's IQ: ");
+                double motherIq = scanner.nextDouble();
+                scanner.nextLine();
+
+                System.out.print("Enter father's name: ");
+                String fatherName = scanner.nextLine();
+                System.out.print("Enter father's last name: ");
+                String fatherLastName = scanner.nextLine();
+
+
+
+                System.out.print("Enter father's IQ: ");
+                double fatherIq = scanner.nextDouble();
+                scanner.nextLine();
+                System.out.print("Enter mother's birth year: ");
+                String motherBirthYearStr = scanner.nextLine();
+                System.out.print("Enter mother's month of birth (1-12): ");
+                String motherBirthMonthStr = scanner.nextLine();
+                System.out.print("Enter mother's day of birth (1-31): ");
+                String motherBirthDayStr = scanner.nextLine();
+
+                int motherBirthYear = Integer.parseInt(motherBirthYearStr);
+                int motherBirthMonth = Integer.parseInt(motherBirthMonthStr);
+                int motherBirthDay = Integer.parseInt(motherBirthDayStr);
+
+                LocalDate motherBirthDate = LocalDate.of(motherBirthYear, motherBirthMonth, motherBirthDay);
+                //          Human father = new Human(fatherName, fatherLastName, LocalDate.of(motherBirthDay,motherBirthMonth,motherBirthYear).toEpochDay(), fatherIq);
+                //          Human mother = new Human(motherName, motherLastName, motherBirthDate.toEpochDay(), motherIq);
+                //        familyController.createNewFamily(father, mother);
+                break;
+
+            case 7:
+                System.out.print("Enter the family ID to delete: ");
+                int familyId = scanner.nextInt();
+                scanner.nextLine();
+                familyController.deleteFamily(familyId);
+                break;
+            case 8:
+                System.out.print("Enter the family ID to edit: ");
+                int editFamilyId = scanner.nextInt();
+                scanner.nextLine();
+                familyController.getFamiliesLessThan(editFamilyId);
+                break;
+            case 9:
+                System.out.print("Enter the age of majority: ");
+                int ageOfMajority = scanner.nextInt();
+                scanner.nextLine();
+                familyController.deleteFamily(ageOfMajority);
+                break;
+            case 0:
+                System.out.println("Exiting application.");
+                System.exit(0);
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
     }
 }

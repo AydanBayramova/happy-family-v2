@@ -142,4 +142,27 @@ public class Family {
     public int hashCode() {
         return Objects.hash(mother, father, children, pet);
     }
+
+    public String prettyFormat() {
+        StringBuilder sb = new StringBuilder("family:\n");
+        if (mother != null) {
+            sb.append("  mother: ").append(mother).append("\n");
+        }
+        if (father != null) {
+            sb.append("  father: ").append(father).append("\n");
+        }
+        if (!children.isEmpty()) {
+            sb.append("  children:\n");
+            for (Human child : children) {
+                sb.append("    ").append(child).append("\n");
+            }
+        }
+        if (!pet.isEmpty()) {
+            sb.append("  pets:\n");
+            for (Pet pet : pet) {
+                sb.append("    ").append(pet).append("\n");
+            }
+        }
+        return sb.toString();
+    }
 }

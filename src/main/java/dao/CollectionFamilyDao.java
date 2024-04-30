@@ -22,10 +22,9 @@ public class CollectionFamilyDao implements FamilyDao {
         if (index >= 0 && index < families.size()) {
             return families.get(index);
         } else {
-            return null;
+            throw new IllegalArgumentException("Invalid index");
         }
     }
-
 
     @Override
     public boolean deleteFamily(int index) {
@@ -33,23 +32,25 @@ public class CollectionFamilyDao implements FamilyDao {
             families.remove(index);
             return true;
         } else {
-            return false;
+            throw new IllegalArgumentException("Invalid index");
         }
     }
 
     @Override
     public boolean deleteFamily(Family family) {
-        int index = families.indexOf(family);
-        if (index != -1) {
-            families.remove(index);
-            return true;
+        if (family != null && families.contains(family)) {
+            return families.remove(family);
         } else {
-            return false;
+            throw new IllegalArgumentException("Family not found or null");
         }
     }
 
     @Override
     public boolean saveFamily(Family family) {
+        if (family == null) {
+            throw new IllegalArgumentException("Family object cannot be null");
+        }
+
         int index = families.indexOf(family);
         if (index != -1) {
             families.set(index, family);
@@ -58,6 +59,5 @@ public class CollectionFamilyDao implements FamilyDao {
         }
         return true;
     }
-
 
 }
