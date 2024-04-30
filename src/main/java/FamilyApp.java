@@ -100,5 +100,14 @@ public class FamilyApp {
         familyController.createNewFamily(father2, mother2);
         System.out.println(familyController.count());
         familyController.displayAllFamilies();
+        Pet pet = new Dog("Cat","Cat",3,55,new HashSet<>());
+         pet.getHabits().add("sleeping");
+        System.out.println(familyController.addPet(0, pet));
+        System.out.println(familyController.getPet(0));
+        Family newFam=new Family(father1,mother1);
+        System.out.println("------------------------------------------------------");
+        System.out.println(familyController.bornChild(newFam, "Allex", "Aly"));
+
+           familyController.getFamiliesLessThan(1);
     }
 }

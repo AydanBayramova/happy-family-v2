@@ -2,11 +2,11 @@ package controller;
 
 import service.FamilyService;
 import dao.entity.Family;
-import dao.FamilyDao;
 import dao.entity.Human;
 import dao.entity.Pet;
 
 import java.util.List;
+import java.util.Optional;
 
 public class FamilyController {
     private FamilyService familyService;
@@ -36,7 +36,7 @@ public class FamilyController {
         return familyService.countFamiliesWithMemberNumber(numberOfPeople);
     }
 
-    public Family createNewFamily(Human fatherName, Human motherName) {
+    public Optional<Family> createNewFamily(Human fatherName, Human motherName) {
         return familyService.createNewFamily(fatherName,motherName);
     }
 

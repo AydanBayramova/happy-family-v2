@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 public final class Man extends Human {
-    public Man(String name, String surname, LocalDate birthDate, double iqLevel, Map<DaysOfWeek, List<String>> schedule, Family family) {
+    public Man(String name, String surname, long birthDate, double iqLevel, Map<DaysOfWeek, List<String>> schedule, Family family) {
         super(name, surname, birthDate, iqLevel, schedule, family);
     }
 
-    public Man(String name, String surname, LocalDate birthDate, double iqLevel, Map<DaysOfWeek, List<String>> schedule) {
+    public Man(String name, String surname, long birthDate, double iqLevel, Map<DaysOfWeek, List<String>> schedule) {
         super(name, surname, birthDate, iqLevel, schedule);
     }
 
-    public Man(String name, String surname, LocalDate birthDate) {
+    public Man(String name, String surname, long birthDate) {
         super(name, surname, birthDate);
     }
 

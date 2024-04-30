@@ -6,7 +6,7 @@ import dao.FamilyDao;
 import java.util.List;
 
 public class CollectionFamilyDao implements FamilyDao {
-    private  List<Family> families;
+    private List<Family> families;
 
     public CollectionFamilyDao(List<Family> families) {
         this.families = families;
@@ -19,50 +19,45 @@ public class CollectionFamilyDao implements FamilyDao {
 
     @Override
     public Family getFamilyByIndex(int index) {
-        if (index>=0 && index<families.size()){
+        if (index >= 0 && index < families.size()) {
             return families.get(index);
-        }
-        else {
+        } else {
             return null;
         }
     }
 
 
-
     @Override
     public boolean deleteFamily(int index) {
-        if (index>=0 && index<families.size()){
+        if (index >= 0 && index < families.size()) {
             families.remove(index);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     @Override
     public boolean deleteFamily(Family family) {
-        int index=families.indexOf(family);
-        if (index!=-1){
+        int index = families.indexOf(family);
+        if (index != -1) {
             families.remove(index);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     @Override
     public boolean saveFamily(Family family) {
-        int index=families.indexOf(family);
-        if (index!=-1){
-            families.set(index,family);
-        }else {
+        int index = families.indexOf(family);
+        if (index != -1) {
+            families.set(index, family);
+        } else {
             families.add(family);
         }
         return true;
     }
-
 
 
 }

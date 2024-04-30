@@ -121,9 +121,12 @@ public class Family {
 
     @Override
     public String toString() {
-        return "dao.entity.Family{" +
+        return "Family{" +
                 "mother=" + mother +
                 ", father=" + father +
+                ", children=" + children +
+                ", pet=" + pet +
+                ", id=" + id +
                 '}';
     }
 
